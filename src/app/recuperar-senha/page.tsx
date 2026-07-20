@@ -6,7 +6,7 @@ export default function RecuperarSenhaPage() {
     <AuthCard
       eyebrow="// Recuperação"
       title="Recuperar senha"
-      description="Este formulario será conectado ao reset de senha do Supabase Auth quando o projeto dedicado estiver ativo."
+      description="Este formulário será conectado ao reset de senha do Supabase Auth quando a autenticação real estiver ativa."
     >
       <form className="space-y-4">
         <label className="block">
@@ -20,7 +20,7 @@ export default function RecuperarSenhaPage() {
           />
         </label>
         <button className="btn btn-primary w-full" type="button">
-          Enviar instrucao
+          Enviar instrução
           <Send size={15} />
         </button>
         <a className="btn btn-outline w-full" href="/login">

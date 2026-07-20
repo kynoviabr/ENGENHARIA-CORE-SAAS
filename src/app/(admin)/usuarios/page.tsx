@@ -32,7 +32,7 @@ export default async function UsuariosPage({ searchParams }: UsuariosPageProps) 
       />
 
       {userAction ? (
-        <div className="rounded-lg border border-[var(--border-b)] bg-[rgba(37,99,235,0.08)] p-4 text-[13.5px] text-[var(--text2)]">
+        <div className="rounded-lg border border-[var(--border-b)] bg-[var(--accent-soft)] p-4 text-[13.5px] text-[var(--text2)]">
           Ação simulada em modo mock: <span className="font-mono text-[var(--blue-xl)]">{userAction}</span>
         </div>
       ) : null}
@@ -52,7 +52,7 @@ export default async function UsuariosPage({ searchParams }: UsuariosPageProps) 
                 <th className="px-5 py-3 font-medium">Empresa</th>
                 <th className="px-5 py-3 font-medium">Papel</th>
                 <th className="px-5 py-3 font-medium">Status</th>
-                <th className="px-5 py-3 font-medium">Ultimo acesso</th>
+                <th className="px-5 py-3 font-medium">Último acesso</th>
               </tr>
             </thead>
             <tbody>
@@ -60,7 +60,7 @@ export default async function UsuariosPage({ searchParams }: UsuariosPageProps) 
                 <tr className="border-b border-[var(--border)] last:border-0" key={user.membershipId}>
                   <td className="px-5 py-4">
                     <Link
-                      className="text-[14px] font-semibold tracking-[-0.2px] hover:text-[var(--blue-xl)]"
+                      className="text-[14px] font-semibold  hover:text-[var(--blue-xl)]"
                       href={`/usuários/${user.membershipId}`}
                     >
                       {user.name}

@@ -7,7 +7,7 @@ export default function LoginPage() {
     <AuthCard
       eyebrow="// Acesso"
       title="Entrar no Core"
-      description="Fluxo preparado para Supabase Auth. Enquanto o projeto dedicado não existe, o painel usa uma sessão mock segura."
+      description="Fluxo preparado para Supabase Auth. Enquanto a autenticação real não estiver ativa, o painel usa uma sessão mock segura."
     >
       <form className="space-y-4">
         <label className="block">

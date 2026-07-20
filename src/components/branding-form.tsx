@@ -41,8 +41,8 @@ export function BrandingForm({
         </label>
 
         <Field defaultValue={branding?.name} label="Nome exibido" name="name" required />
-        <ColorField defaultValue={branding?.primaryColor ?? "#2563EB"} label="Cor primaria" name="primaryColor" />
-        <ColorField defaultValue={branding?.secondaryColor ?? "#3B82F6"} label="Cor secundaria" name="secondaryColor" />
+        <ColorField defaultValue={branding?.primaryColor ?? "#1E4066"} label="Cor primária" name="primaryColor" />
+        <ColorField defaultValue={branding?.secondaryColor ?? "#148779"} label="Cor secundária" name="secondaryColor" />
         <Field defaultValue={branding?.logoUrl ?? ""} label="Logo URL" name="logoUrl" type="url" />
         <Field defaultValue={branding?.smallLogoUrl ?? ""} label="Logo reduzido URL" name="smallLogoUrl" type="url" />
         <Field defaultValue={branding?.faviconUrl ?? ""} label="Favicon URL" name="faviconUrl" type="url" />

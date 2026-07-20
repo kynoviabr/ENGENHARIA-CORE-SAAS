@@ -36,14 +36,14 @@ export default async function ContratosPage({ searchParams }: ContratosPageProps
       />
 
       {contractAction ? (
-        <div className="rounded-lg border border-[var(--border-b)] bg-[rgba(37,99,235,0.08)] p-4 text-[13.5px] text-[var(--text2)]">
+        <div className="rounded-lg border border-[var(--border-b)] bg-[var(--accent-soft)] p-4 text-[13.5px] text-[var(--text2)]">
           Ação simulada em modo mock: <span className="font-mono text-[var(--blue-xl)]">{contractAction}</span>
         </div>
       ) : null}
 
       <section className="grid gap-4 md:grid-cols-3">
         <InfoCard label="Contratos" value={summary.total.toString()} detail="Registros mockados para desenho inicial." />
-        <InfoCard label="Trial" value={summary.trial.toString()} detail="Assinatura temporaria em onboarding." />
+        <InfoCard label="Trial" value={summary.trial.toString()} detail="Assinatura temporária em onboarding." />
         <InfoCard label="Suspensos" value={summary.suspended.toString()} detail="Bloqueio por status comercial." />
       </section>
 
@@ -66,7 +66,7 @@ export default async function ContratosPage({ searchParams }: ContratosPageProps
                     <div className="flex items-center gap-3">
                       <CreditCard size={17} strokeWidth={1.4} className="text-[var(--blue-xl)]" />
                       <Link
-                        className="text-[14px] font-semibold tracking-[-0.2px] hover:text-[var(--blue-xl)]"
+                        className="text-[14px] font-semibold  hover:text-[var(--blue-xl)]"
                         href={`/contratos/${contract.id}`}
                       >
                         {contract.tenantName}

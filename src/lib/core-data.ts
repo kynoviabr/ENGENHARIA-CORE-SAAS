@@ -294,8 +294,8 @@ export const platformSettings = [
   },
   {
     label: "Ambiente Supabase",
-    value: "Aguardando",
-    detail: "Será conectado quando o projeto dedicado for criado.",
+    value: "DEV",
+    detail: "Usará a base Supabase DEV do PMT-Braidotti.",
   },
 ] as const;
 
@@ -311,9 +311,9 @@ export const roadmap = [
     detail: "Schemas, tenant_id obrigatório e helpers de contexto ativo.",
   },
   {
-    title: "Supabase dedicado",
+    title: "Supabase DEV",
     status: "waiting",
-    detail: "Conectar Auth, Postgres, RLS e migrations quando o projeto existir.",
+    detail: "Conectar Auth, Postgres, RLS e migrations na base compartilhada.",
   },
   {
     title: "RBAC persistente",

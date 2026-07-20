@@ -68,7 +68,7 @@ export default async function ContratoDetailPage({ params, searchParams }: Contr
       />
 
       {contractAction ? (
-        <div className="rounded-lg border border-[var(--border-b)] bg-[rgba(37,99,235,0.08)] p-4 text-[13.5px] text-[var(--text2)]">
+        <div className="rounded-lg border border-[var(--border-b)] bg-[var(--accent-soft)] p-4 text-[13.5px] text-[var(--text2)]">
           Ação simulada em modo mock: <span className="font-mono text-[var(--blue-xl)]">{contractAction}</span>
         </div>
       ) : null}

@@ -6,9 +6,9 @@ export default function ConfirmarEmailPage() {
     <AuthCard
       eyebrow="// Confirmação"
       title="Confirmar e-mail"
-      description="Pagina reservada para tratar links de confirmação enviados pelo Supabase Auth."
+      description="Página reservada para tratar links de confirmação enviados pelo Supabase Auth."
     >
-      <div className="rounded-lg border border-[var(--border-b)] bg-[rgba(37,99,235,0.08)] p-4">
+      <div className="rounded-lg border border-[var(--border-b)] bg-[var(--accent-soft)] p-4">
         <div className="flex items-center gap-3 text-[14px] font-semibold text-[var(--text)]">
           <CheckCircle2 size={18} className="text-[var(--blue-xl)]" />
           Fluxo aguardando Supabase

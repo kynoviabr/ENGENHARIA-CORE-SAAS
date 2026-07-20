@@ -17,7 +17,7 @@ export default function AuthPage() {
       <section className="grid gap-4 md:grid-cols-3">
         <InfoCard label="Provedores" value={authProviders.length.toString()} detail="Contratos iniciais de login." />
         <InfoCard label="Sessão" value="Contextual" detail="Usuário, empresas e tenant ativo." />
-        <InfoCard label="Supabase Auth" value="Depois" detail="Aguardando projeto dedicado." />
+        <InfoCard label="Supabase Auth" value="Próximo" detail="Preparado para autenticação real." />
       </section>
 
       <DataPanel eyebrow="// Providers" title="Métodos de autenticação">
@@ -28,7 +28,7 @@ export default function AuthPage() {
                 <KeyRound size={32} strokeWidth={1.3} className="text-[var(--blue-xl)]" />
                 <StatusPill status={provider.status} />
               </div>
-              <h2 className="mt-5 text-[15px] font-semibold tracking-[-0.2px]">{provider.name}</h2>
+              <h2 className="mt-5 text-[15px] font-semibold ">{provider.name}</h2>
               <p className="mt-3 text-[13.5px] leading-6 text-[var(--text2)]">{provider.detail}</p>
             </article>
           ))}

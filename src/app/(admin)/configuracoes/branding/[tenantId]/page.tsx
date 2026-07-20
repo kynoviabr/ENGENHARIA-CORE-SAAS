@@ -40,14 +40,14 @@ export default async function BrandingDetailPage({ params, searchParams }: Brand
       />
 
       {settingsAction ? (
-        <div className="rounded-lg border border-[var(--border-b)] bg-[rgba(37,99,235,0.08)] p-4 text-[13.5px] text-[var(--text2)]">
+        <div className="rounded-lg border border-[var(--border-b)] bg-[var(--accent-soft)] p-4 text-[13.5px] text-[var(--text2)]">
           Ação simulada em modo mock: <span className="font-mono text-[var(--blue-xl)]">{settingsAction}</span>
         </div>
       ) : null}
 
       <section className="grid gap-4 md:grid-cols-3">
         <InfoCard label="Nome" value={branding?.name ?? tenant.tradeName} detail={tenant.legalName} />
-        <InfoCard label="Cor primaria" value={branding?.primaryColor ?? "#2563EB"} detail="Token visual do tenant." />
+        <InfoCard label="Cor primária" value={branding?.primaryColor ?? "#1E4066"} detail="Token visual do tenant." />
         <InfoCard label="Suporte" value={branding?.supportEmail || tenant.email} detail={branding?.supportPhone || tenant.phone} />
       </section>
 

@@ -47,12 +47,12 @@ export default function EmpresasPage() {
                 <tr className="border-b border-[var(--border)] last:border-0" key={tenant.name}>
                   <td className="px-5 py-4">
                     <div className="flex items-center gap-3">
-                      <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-[var(--border-b)] bg-[rgba(37,99,235,0.09)] text-[var(--blue-xl)]">
+                      <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-[var(--border-b)] bg-[var(--accent-soft)] text-[var(--blue-xl)]">
                         <Building2 size={17} strokeWidth={1.4} />
                       </div>
                       <div>
                         <Link
-                          className="text-[14px] font-semibold tracking-[-0.2px] hover:text-[var(--blue-xl)]"
+                          className="text-[14px] font-semibold  hover:text-[var(--blue-xl)]"
                           href={`/empresas/${tenant.id}`}
                         >
                           {tenant.name}

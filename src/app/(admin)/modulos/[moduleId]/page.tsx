@@ -64,7 +64,7 @@ export default async function ModuleDetailPage({ params }: ModuleDetailPageProps
                 <tr className="border-b border-[var(--border)] last:border-0" key={entitlement.id}>
                   <td className="px-5 py-4">
                     <Link
-                      className="text-[14px] font-semibold tracking-[-0.2px] hover:text-[var(--blue-xl)]"
+                      className="text-[14px] font-semibold  hover:text-[var(--blue-xl)]"
                       href={`/módulos/entitlements/${entitlement.id}`}
                     >
                       {entitlement.tenantName}

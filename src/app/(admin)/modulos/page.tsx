@@ -44,7 +44,7 @@ export default async function ModulosPage({ searchParams }: ModulosPageProps) {
       />
 
       {catalogAction ? (
-        <div className="rounded-lg border border-[var(--border-b)] bg-[rgba(37,99,235,0.08)] p-4 text-[13.5px] text-[var(--text2)]">
+        <div className="rounded-lg border border-[var(--border-b)] bg-[var(--accent-soft)] p-4 text-[13.5px] text-[var(--text2)]">
           Ação simulada em modo mock: <span className="font-mono text-[var(--blue-xl)]">{catalogAction}</span>
         </div>
       ) : null}
@@ -65,7 +65,7 @@ export default async function ModulosPage({ searchParams }: ModulosPageProps) {
                   <StatusPill status={module.status} />
                 </div>
                 <Link
-                  className="mt-5 block text-[15px] font-semibold tracking-[-0.2px] hover:text-[var(--blue-xl)]"
+                  className="mt-5 block text-[15px] font-semibold  hover:text-[var(--blue-xl)]"
                   href={`/módulos/${module.id}`}
                 >
                   {module.name}

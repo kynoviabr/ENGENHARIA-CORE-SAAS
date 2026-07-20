@@ -29,7 +29,7 @@ export default async function ConfiguracoesPage({ searchParams }: ConfiguracoesP
       />
 
       {settingsAction ? (
-        <div className="rounded-lg border border-[var(--border-b)] bg-[rgba(37,99,235,0.08)] p-4 text-[13.5px] text-[var(--text2)]">
+        <div className="rounded-lg border border-[var(--border-b)] bg-[var(--accent-soft)] p-4 text-[13.5px] text-[var(--text2)]">
           Ação simulada em modo mock: <span className="font-mono text-[var(--blue-xl)]">{settingsAction}</span>
         </div>
       ) : null}
@@ -40,7 +40,7 @@ export default async function ConfiguracoesPage({ searchParams }: ConfiguracoesP
         <InfoCard
           label="Fonte de dados"
           value={dataSourceMode === "supabase" ? "Supabase" : "Mock"}
-          detail="Troca automatica via variaveis .env."
+          detail="Troca automática via variáveis .env."
         />
       </section>
 
@@ -59,7 +59,7 @@ export default async function ConfiguracoesPage({ searchParams }: ConfiguracoesP
                     <Palette size={18} strokeWidth={1.4} className="mt-1 text-[var(--blue-xl)]" />
                     <div>
                       <Link
-                        className="text-[14px] font-semibold tracking-[-0.2px] hover:text-[var(--blue-xl)]"
+                        className="text-[14px] font-semibold  hover:text-[var(--blue-xl)]"
                         href={`/configuracoes/branding/${tenant.id}`}
                       >
                         {tenant.tradeName}
@@ -68,7 +68,7 @@ export default async function ConfiguracoesPage({ searchParams }: ConfiguracoesP
                         {tenantBranding?.name ?? "Sem branding configurado"}
                       </p>
                       <div className="mt-3 flex flex-wrap gap-2">
-                        <span className="pill pill-blue">{tenantBranding?.primaryColor ?? "#2563EB"}</span>
+                        <span className="pill pill-blue">{tenantBranding?.primaryColor ?? "#1E4066"}</span>
                         <span className="pill pill-blue">{tenantBranding?.supportEmail || "sem suporte"}</span>
                       </div>
                     </div>
@@ -90,7 +90,7 @@ export default async function ConfiguracoesPage({ searchParams }: ConfiguracoesP
                 <div className="flex items-start gap-3">
                   <Settings size={18} strokeWidth={1.4} className="mt-1 text-[var(--blue-xl)]" />
                   <div>
-                    <h2 className="text-[14px] font-semibold tracking-[-0.2px]">{setting.label}</h2>
+                    <h2 className="text-[14px] font-semibold ">{setting.label}</h2>
                     <p className="mt-2 text-[13.5px] leading-6 text-[var(--text2)]">{setting.detail}</p>
                   </div>
                 </div>

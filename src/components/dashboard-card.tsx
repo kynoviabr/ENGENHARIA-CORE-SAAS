@@ -6,7 +6,7 @@ interface DashboardCardProps {
 export function DashboardCard({ children, className = "" }: DashboardCardProps) {
   return (
     <section
-      className={`rounded-xl border border-[var(--border)] bg-[var(--bg2)] ${className}`}
+      className={`data-card ${className}`}
     >
       {children}
     </section>
