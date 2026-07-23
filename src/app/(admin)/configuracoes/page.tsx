@@ -9,6 +9,49 @@ import { getDataSourceMode } from "@/core/repositories";
 import { listBrandingListRows } from "@/core/repositories/settings-repository";
 import { listTenantRows } from "@/core/repositories/tenant-repository";
 
+const coreAdminJourney = [
+  {
+    title: "Logar no Core Admin",
+    detail: "Administrador acessa a plataforma principal para iniciar a configuração do cliente."
+  },
+  {
+    title: "Cadastrar a empresa cliente",
+    detail: "Criar o tenant do cliente final. O tenant será a base de isolamento dos dados."
+  },
+  {
+    title: "Adicionar Super User Braidotti",
+    detail: "O Core deve adicionar automaticamente o Super User Braidotti ao tenant do cliente, com papel forte e auditável."
+  },
+  {
+    title: "Criar contrato",
+    detail: "Registrar o contrato do cliente logo após a criação da empresa."
+  },
+  {
+    title: "Cadastrar escopos do contrato",
+    detail: "Definir unidade, planta, período, limites e escopos operacionais vinculados ao contrato."
+  },
+  {
+    title: "Vincular contrato e produto",
+    detail: "Habilitar o produto contratado, como BTT, dentro do contrato e do tenant do cliente."
+  },
+  {
+    title: "Configurar entitlements",
+    detail: "Liberar módulos e funcionalidades do produto conforme contrato, plano e escopo."
+  },
+  {
+    title: "Cadastrar usuários do cliente",
+    detail: "Convidar responsáveis, gestores, operadores e visualizadores do cliente."
+  },
+  {
+    title: "Definir papéis e permissões",
+    detail: "Aplicar roles e permissões dentro do tenant, incluindo permissões pmt.* quando o BTT estiver habilitado."
+  },
+  {
+    title: "Liberar acesso ao produto",
+    detail: "Com empresa, contrato, produto e usuários configurados, o cliente passa a acessar o produto acoplado."
+  }
+];
+
 interface ConfiguracoesPageProps {
   searchParams: Promise<{
     settingsAction?: string;
@@ -43,6 +86,24 @@ export default async function ConfiguracoesPage({ searchParams }: ConfiguracoesP
           detail="Troca automática via variáveis .env."
         />
       </section>
+
+      <DataPanel eyebrow="// Jornada Core Admin" title="Fluxo de habilitação do cliente">
+        <div className="grid gap-px bg-[var(--border)] md:grid-cols-2">
+          {coreAdminJourney.map((step, index) => (
+            <article className="bg-[var(--bg)] p-5" key={step.title}>
+              <div className="flex items-start gap-4">
+                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-[var(--accent-soft)] text-[13px] font-semibold text-[var(--accent)]">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <div>
+                  <h2 className="text-[14px] font-semibold text-[var(--text)]">{step.title}</h2>
+                  <p className="mt-2 text-[13.5px] leading-6 text-[var(--text2)]">{step.detail}</p>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </DataPanel>
 
       <section className="grid gap-6 xl:grid-cols-[1fr_420px]">
         <DataPanel eyebrow="// Branding" title="Branding por tenant">

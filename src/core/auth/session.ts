@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import { cookies } from "next/headers";
 import { coreStore } from "@/core/mock-store";
 import { getSupabaseServerClient } from "@/core/supabase/server";
 import { isSupabaseConfigured } from "@/core/supabase/config";
@@ -7,10 +8,12 @@ export interface SessionTenant {
   id: string;
   name: string;
   status: string;
+  timezone?: string;
 }
 
 export interface CoreSession {
   mode: "mock" | "supabase";
+  runtimeMode: "mock" | "supabase";
   user: {
     id: string;
     name: string;
@@ -20,6 +23,8 @@ export interface CoreSession {
   tenants: SessionTenant[];
   roles: string[];
   permissions: string[];
+  products: string[];
+  modules: string[];
 }
 
 export async function getCurrentSession(): Promise<CoreSession | null> {
@@ -46,11 +51,16 @@ export async function getCurrentSession(): Promise<CoreSession | null> {
   } = await supabase.auth.getUser();
 
   if (error || !user) {
+    if (isMockSessionAllowed()) {
+      return getMockSession();
+    }
+
     return null;
   }
 
   return {
     mode: "supabase",
+    runtimeMode: "supabase",
     user: {
       id: user.id,
       name: user.email ?? "Usuário Supabase",
@@ -64,6 +74,8 @@ export async function getCurrentSession(): Promise<CoreSession | null> {
     tenants: [],
     roles: [],
     permissions: [],
+    products: [],
+    modules: [],
   };
 }
 
@@ -91,39 +103,73 @@ function isMockSessionAllowed(): boolean {
   return process.env.NODE_ENV !== "production" || process.env.ALLOW_MOCK_AUTH === "true";
 }
 
-function getMockSession(): CoreSession {
-  const user = coreStore.users.find((item) => item.id === "user_amanda") ?? coreStore.users[0];
-  const memberships = coreStore.memberships.filter(
-    (membership) => membership.userId === user.id && membership.status === "active",
-  );
-  const tenants = memberships
-    .map((membership) => coreStore.tenants.find((tenant) => tenant.id === membership.tenantId))
-    .filter((tenant): tenant is NonNullable<typeof tenant> => Boolean(tenant))
-    .map((tenant) => ({
-      id: tenant.id,
-      name: tenant.tradeName,
-      status: tenant.status,
-    }));
-  const activeTenant = tenants[0];
-  const roleIds = coreStore.userRoles
-    .filter((userRole) => userRole.userId === user.id && userRole.tenantId === activeTenant.id)
-    .map((userRole) => userRole.roleId);
-  const roles = coreStore.roles.filter((role) => roleIds.includes(role.id));
-  const permissionIds = new Set(roles.flatMap((role) => role.permissionIds));
-  const permissions = coreStore.permissions
-    .filter((permission) => permissionIds.has(permission.id))
-    .map((permission) => permission.code);
+export const ACTIVE_TENANT_COOKIE = "core_active_tenant_id";
+
+async function getMockSession(): Promise<CoreSession> {
+  const user = {
+    id: "7f40e2c9-8af0-4d47-b8b5-45f2f98f1a21",
+    name: "Consultor Braidotti",
+    email: "consultor@braidotti.com",
+  };
+  const tenants = [
+    {
+      id: "5e78e5fc-3482-4102-9bd4-f6fbe7035ef1",
+      name: "Cliente Gerdau",
+      status: "active",
+      timezone: "America/Sao_Paulo",
+    },
+    {
+      id: "8f8ce7d2-2b0e-4d21-bd44-cf8d930e1e22",
+      name: "Cliente Eneva",
+      status: "active",
+      timezone: "America/Sao_Paulo",
+    },
+  ];
+  const cookieStore = await cookies();
+  const selectedTenantId = cookieStore.get(ACTIVE_TENANT_COOKIE)?.value;
+  const activeTenant = tenants.find((tenant) => tenant.id === selectedTenantId) ?? tenants[0];
+  const platformPermissions = coreStore.permissions.map((permission) => permission.code);
 
   return {
     mode: "mock",
-    user: {
-      id: user.id,
-      name: user.name,
-      email: user.email,
-    },
+    runtimeMode: "mock",
+    user,
     activeTenant,
     tenants,
-    roles: roles.map((role) => role.name),
-    permissions,
+    roles: ["Super Admin Braidotti", "Consultor BTT"],
+    permissions: [...new Set([...platformPermissions, ...pmtMockPermissions])],
+    products: ["core-platform", "pmt"],
+    modules: ["identity", "tenant-admin", "contracts", "audit", "pmt-core", "pmt-admin", "pmt-reports"],
   };
 }
+
+const pmtMockPermissions = [
+  "pmt.dashboard.view",
+  "pmt.studies.view",
+  "pmt.studies.create",
+  "pmt.studies.update",
+  "pmt.projects.view",
+  "pmt.projects.create",
+  "pmt.projects.update",
+  "pmt.project_memberships.manage",
+  "pmt.employees.view",
+  "pmt.costs.view",
+  "pmt.costs.manage",
+  "pmt.employees.create",
+  "pmt.employees.update",
+  "pmt.employees.import",
+  "pmt.observations.create",
+  "pmt.observations.validate",
+  "pmt.daily_reports.view",
+  "pmt.daily_reports.create",
+  "pmt.daily_reports.submit",
+  "pmt.daily_reports.validate",
+  "pmt.calculations.run",
+  "pmt.analysis.view",
+  "pmt.reports.view",
+  "pmt.documents.view",
+  "pmt.documents.manage",
+  "pmt.action_items.manage",
+  "pmt.methodologies.manage",
+  "pmt.settings.manage",
+];

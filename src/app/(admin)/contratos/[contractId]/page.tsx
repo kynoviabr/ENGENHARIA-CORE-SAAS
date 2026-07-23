@@ -213,6 +213,7 @@ function billingCycleLabel(value: string) {
     monthly: "Mensal",
     quarterly: "Trimestral",
     yearly: "Anual",
+    one_time: "Única",
     trial: "Trial",
   };
 

@@ -1,0 +1,3 @@
+studyId,employeeCode,reportDate,shift,startTime,endTime,workOrder,activityCode,note
+study-gerdau-jul-2026,MEC-014,2026-07-16,Diurno,07:30,08:20,OS-00001,100,Execução do serviço
+study-gerdau-jul-2026,MEC-014,2026-07-16,Diurno,08:20,08:40,OS-00001,120,Deslocamento

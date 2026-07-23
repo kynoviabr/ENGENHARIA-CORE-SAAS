@@ -9,7 +9,7 @@ export default function NovaEmpresaPage() {
       <PageHeader
         eyebrow="// Empresas"
         title="Nova empresa"
-        description="Cadastro inicial de tenant. Em modo mock, o envio simula o fluxo e redireciona para a listagem."
+        description="Cadastre os dados principais da empresa cliente, endereço e contato responsável."
       />
 
       <DataPanel eyebrow="// Tenant form" title="Dados cadastrais">

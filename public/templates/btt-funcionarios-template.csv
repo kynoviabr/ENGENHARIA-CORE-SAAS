@@ -1,0 +1,3 @@
+employeeCode,fullName,email,companyUnit,maintenanceArea,team,shift,discipline,role,hierarchyLevel,hierarchyLabel,costType,hourlyCost,canSelfReport
+MEC-014,João Pereira,joao.pereira@cliente.com.br,Usina Ouro Branco,Laminação,Equipe A,Diurno,Mecânica,Mecânico mantenedor,L4,Mecânico,direct,86,true
+ELE-008,Mariana Souza,mariana.souza@cliente.com.br,Usina Ouro Branco,Laminação,Equipe B,Diurno,Elétrica,Eletricista industrial,L5,Eletricista,direct,92,true

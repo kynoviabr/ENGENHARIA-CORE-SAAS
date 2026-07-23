@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import { KeyRound, ShieldCheck, UsersRound } from "lucide-react";
 import { updateRoleAction } from "@/core/actions/access-actions";
 import { getRoleRowById, listPermissionRows, listRoleListRows } from "@/core/repositories/access-repository";
-import { listTenantRows } from "@/core/repositories/tenant-repository";
+import { listProductRows } from "@/core/repositories/catalog-repository";
 import { DataPanel } from "@/components/data-panel";
 import { InfoCard } from "@/components/info-card";
 import { PageHeader } from "@/components/page-header";
@@ -20,11 +20,11 @@ interface PapelDetailPageProps {
 export default async function PapelDetailPage({ params, searchParams }: PapelDetailPageProps) {
   const { roleId } = await params;
   const { accessAction } = await searchParams;
-  const [role, roleList, permissions, tenants] = await Promise.all([
+  const [role, roleList, permissions, products] = await Promise.all([
     getRoleRowById(roleId),
     listRoleListRows(),
     listPermissionRows(),
-    listTenantRows(),
+    listProductRows(),
   ]);
 
   if (!role) {
@@ -39,8 +39,8 @@ export default async function PapelDetailPage({ params, searchParams }: PapelDet
       <PageHeader
         eyebrow="// Acesso"
         title={role.name}
-        description="Detalhe do papel, escopo de aplicação e permissões usadas pela autorização central."
-        action={<span className="pill pill-blue">{role.scope}</span>}
+        description="Detalhe da role global e matriz de permissões usada pela autorização central."
+        action={<span className="pill pill-blue">Global</span>}
       />
 
       {accessAction ? (
@@ -50,7 +50,7 @@ export default async function PapelDetailPage({ params, searchParams }: PapelDet
       ) : null}
 
       <section className="grid gap-4 md:grid-cols-3">
-        <InfoCard label="Tenant" value={roleStats?.tenantName ?? "Global"} detail={role.tenantId ?? "Escopo global"} />
+        <InfoCard label="Aplicação" value="Global" detail="Disponível para qualquer cliente." />
         <InfoCard label="Permissões" value={role.permissionIds.length.toString()} detail="Ações vinculadas ao papel." />
         <InfoCard label="Membros" value={(roleStats?.memberCount ?? 0).toString()} detail="Usuários com atribuição." />
       </section>
@@ -61,9 +61,9 @@ export default async function PapelDetailPage({ params, searchParams }: PapelDet
             <RoleForm
               action={updateAction}
               permissions={permissions}
+              products={products}
               role={role}
               submitLabel="Salvar alterações"
-              tenants={tenants}
             />
           </div>
         </DataPanel>

@@ -295,7 +295,7 @@ export const platformSettings = [
   {
     label: "Ambiente Supabase",
     value: "DEV",
-    detail: "Usará a base Supabase DEV do PMT-Braidotti.",
+    detail: "Usará a base Supabase DEV do BTT-Braidotti.",
   },
 ] as const;
 

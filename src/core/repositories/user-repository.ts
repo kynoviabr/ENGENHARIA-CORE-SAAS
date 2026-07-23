@@ -19,6 +19,7 @@ export interface UserMembershipListItem {
 export interface UserMembershipInput {
   name: string;
   email: string;
+  systemCode: string;
   tenantId: string;
   roleId: string;
   status: MembershipStatus;

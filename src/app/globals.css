@@ -26,6 +26,45 @@
   --accent: #148779;
   --accent-h: #0f766e;
   --accent-soft: #e8f6f3;
+  --brand-navy-950: #102a43;
+  --brand-navy-900: #102a43;
+  --brand-navy-800: #1e4066;
+  --brand-navy-700: #2e6da8;
+  --brand-blue-500: #1e4066;
+  --brand-blue-400: #2e6da8;
+  --brand-blue-100: #e8f1f8;
+  --brand-blue-50: #f3f7fb;
+  --accent-600: #0f766e;
+  --accent-500: #148779;
+  --accent-400: #19a995;
+  --accent-100: #d9f4ef;
+  --accent-50: #eef8f6;
+  --gray-900: #102a43;
+  --gray-800: #1e4066;
+  --gray-700: #526173;
+  --gray-600: #64748b;
+  --gray-500: #7f8ea3;
+  --gray-300: #cbd5e1;
+  --gray-200: #dbe3ec;
+  --gray-100: #f7f9fc;
+  --gray-50: #f3f7fb;
+  --success: #0f766e;
+  --warning: #b45309;
+  --danger-bg: 343 71% 94%;
+  --primary-light: #eef2ff;
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.5rem;
+  --space-12: 48px;
+  --radius-xl: 20px;
+  --shadow-accent: 0 8px 20px rgba(10, 37, 64, 0.08);
+  --ease: ease;
+  --dur: 200ms;
+  --font-archivo: var(--font-heading);
   --r: 8px;
   --radius-sm: 4px;
   --radius-md: 6px;
@@ -133,6 +172,35 @@ input[type="checkbox"] {
   font-weight: 500;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+}
+
+.field-label {
+  color: var(--text3);
+  display: block;
+  font-family: var(--font-mono), monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.field-control {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  color: var(--text);
+  font-size: 13.5px;
+  height: 40px;
+  margin-top: 6px;
+  outline: none;
+  padding: 0 12px;
+  transition: border-color 180ms ease, box-shadow 180ms ease;
+  width: 100%;
+}
+
+.field-control:focus {
+  border-color: var(--border-b);
+  box-shadow: 0 0 0 3px rgba(20, 135, 121, 0.08);
 }
 
 .btn {
@@ -272,6 +340,15 @@ input[type="checkbox"] {
   font-size: 10px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
+}
+
+.pmt-sidebar-logo {
+  display: block;
+  height: auto;
+  max-height: 44px;
+  object-fit: contain;
+  object-position: left center;
+  width: 132px;
 }
 
 .core-sidebar nav {
@@ -415,6 +492,125 @@ input[type="checkbox"] {
   font-weight: 600;
   justify-content: center;
   width: 36px;
+}
+
+.avatar-lg {
+  width: 44px;
+}
+
+.account-menu {
+  position: relative;
+}
+
+.account-menu summary {
+  list-style: none;
+}
+
+.account-menu summary::-webkit-details-marker {
+  display: none;
+}
+
+.account-trigger {
+  align-items: center;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  color: var(--text2);
+  cursor: pointer;
+  display: inline-flex;
+  gap: 6px;
+  min-height: 38px;
+  padding: 1px 9px 1px 1px;
+  transition: border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.account-trigger:hover,
+.account-menu[open] .account-trigger {
+  border-color: var(--border-b);
+  box-shadow: 0 6px 14px rgba(10, 37, 64, 0.08);
+}
+
+.account-dropdown {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  display: grid;
+  min-width: 260px;
+  padding: 8px;
+  position: absolute;
+  right: 0;
+  top: calc(100% + 8px);
+  z-index: 50;
+}
+
+.account-card {
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  gap: 10px;
+  margin-bottom: 6px;
+  padding: 8px 8px 12px;
+}
+
+.account-card div {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.account-card strong,
+.account-card span,
+.account-card small {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.account-card strong {
+  color: var(--text);
+  font-size: 13.5px;
+  font-weight: 600;
+}
+
+.account-card span,
+.account-card small {
+  color: var(--text2);
+  font-size: 12.5px;
+}
+
+.account-card small {
+  color: var(--text3);
+}
+
+.account-action {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  border-radius: var(--radius-md);
+  color: var(--text2);
+  display: flex;
+  font: inherit;
+  font-size: 13px;
+  gap: 9px;
+  min-height: 36px;
+  padding: 0 9px;
+  text-align: left;
+  transition: background 180ms ease, color 180ms ease;
+  width: 100%;
+}
+
+.account-action:hover {
+  background: var(--bg3);
+  color: var(--text);
+}
+
+.account-action-danger {
+  color: #9f2d27;
+}
+
+.account-dropdown form {
+  display: contents;
 }
 
 .core-content {

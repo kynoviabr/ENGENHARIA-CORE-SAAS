@@ -5,7 +5,8 @@ import {
   suspendUserMembershipAction,
   updateUserMembershipAction,
 } from "@/core/actions/user-actions";
-import { listRoleRows } from "@/core/repositories/access-repository";
+import { listPermissionRows, listRoleRows } from "@/core/repositories/access-repository";
+import { listEntitlementListRows, listProductRows } from "@/core/repositories/catalog-repository";
 import { listTenantRows } from "@/core/repositories/tenant-repository";
 import { getUserMembershipRowById } from "@/core/repositories/user-repository";
 import { DataPanel } from "@/components/data-panel";
@@ -26,10 +27,13 @@ interface UsuarioDetailPageProps {
 export default async function UsuarioDetailPage({ params, searchParams }: UsuarioDetailPageProps) {
   const { membershipId } = await params;
   const { userAction } = await searchParams;
-  const [membership, tenants, roles] = await Promise.all([
+  const [membership, tenants, roles, permissions, products, entitlements] = await Promise.all([
     getUserMembershipRowById(membershipId),
     listTenantRows(),
     listRoleRows(),
+    listPermissionRows(),
+    listProductRows(),
+    listEntitlementListRows(),
   ]);
 
   if (!membership) {
@@ -66,7 +70,10 @@ export default async function UsuarioDetailPage({ params, searchParams }: Usuari
           <div className="p-5">
             <UserMembershipForm
               action={updateAction}
+              entitlements={entitlements}
               membership={membership}
+              permissions={permissions}
+              products={products}
               roles={roles}
               submitLabel="Salvar alterações"
               tenants={tenants}

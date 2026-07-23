@@ -5,13 +5,28 @@ import { redirect } from "next/navigation";
 import { requirePermission } from "@/core/auth/session";
 import { getDataSourceMode } from "@/core/repositories";
 import {
+  createProductRow,
   createEntitlementRow,
   updateEntitlementRow,
   updateEntitlementStatus,
   type EntitlementInput,
+  type ProductInput,
 } from "@/core/repositories/catalog-repository";
 import { readOptionalDate, readOptionalText, readRequiredDate, readRequiredText } from "@/core/security/validation";
 import type { CatalogStatus, EntitlementSource } from "@/core/types";
+
+export async function createProductAction(formData: FormData) {
+  await requirePermission("platform.contracts.manage");
+  const input = parseProductForm(formData);
+
+  if (getDataSourceMode() === "mock") {
+    redirect("/modulos?catalogAction=mock-create-product");
+  }
+
+  await createProductRow(input);
+  revalidatePath("/modulos");
+  redirect("/modulos");
+}
 
 export async function createEntitlementAction(formData: FormData) {
   await requirePermission("platform.contracts.manage");
@@ -61,6 +76,21 @@ async function setEntitlementStatus(entitlementId: string, status: CatalogStatus
   redirect(`/modulos/entitlements/${entitlementId}`);
 }
 
+function parseProductForm(formData: FormData): ProductInput {
+  const status = String(formData.get("status") ?? "active") as CatalogStatus;
+
+  if (!["active", "pending", "planned", "suspended"].includes(status)) {
+    throw new Error("Invalid product status");
+  }
+
+  return {
+    code: readRequiredText(formData, "code", 80).toLowerCase(),
+    name: readRequiredText(formData, "name", 120),
+    description: readRequiredText(formData, "description", 500),
+    status,
+  };
+}
+
 function parseEntitlementForm(formData: FormData): EntitlementInput {
   const status = String(formData.get("status") ?? "active") as CatalogStatus;
   const source = String(formData.get("source") ?? "manual") as EntitlementSource;
@@ -82,7 +112,7 @@ function parseEntitlementForm(formData: FormData): EntitlementInput {
     resourceId: readOptionalText(formData, "resourceId", 160),
     status,
     source,
-    sourceId: readOptionalText(formData, "sourceId", 160),
+    sourceId: readRequiredText(formData, "sourceId", 160),
     startsAt: readRequiredDate(formData, "startsAt"),
     expiresAt: readOptionalDate(formData, "expiresAt"),
   };

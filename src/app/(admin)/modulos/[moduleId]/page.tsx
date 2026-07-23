@@ -29,30 +29,30 @@ export default async function ModuleDetailPage({ params }: ModuleDetailPageProps
   return (
     <div className="space-y-6">
       <PageHeader
-        eyebrow="// Módulos"
+        eyebrow="// Sistemas"
         title={module.name}
         description={module.description}
         action={<StatusPill status={module.status} />}
       />
 
       <section className="grid gap-4 md:grid-cols-3">
-        <InfoCard label="Produto" value={module.productName} detail={module.productCode} />
-        <InfoCard label="Entitlements" value={module.entitlementCount.toString()} detail="Liberações totais." />
-        <InfoCard label="Ativos" value={module.activeEntitlementCount.toString()} detail="Tenants com acesso ativo." />
+        <InfoCard label="Sistema" value={module.productName} detail={module.productCode} />
+        <InfoCard label="Liberações" value={module.entitlementCount.toString()} detail="Acessos totais." />
+        <InfoCard label="Ativos" value={module.activeEntitlementCount.toString()} detail="Clientes com acesso ativo." />
       </section>
 
-      <DataPanel eyebrow="// Entitlements" title="Tenants com acesso">
+      <DataPanel eyebrow="// Liberações" title="Clientes com acesso">
         <div className="flex justify-end border-b border-[var(--border)] p-4">
           <Link className="btn btn-primary" href="/modulos/entitlements/novo">
             <Plus size={15} />
-            Novo entitlement
+            Nova liberação
           </Link>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full min-w-[760px] border-collapse text-left">
             <thead>
               <tr className="border-b border-[var(--border)] font-mono text-[10.5px] uppercase tracking-[0.08em] text-[var(--text3)]">
-                <th className="px-5 py-3 font-medium">Tenant</th>
+                <th className="px-5 py-3 font-medium">Cliente</th>
                 <th className="px-5 py-3 font-medium">Origem</th>
                 <th className="px-5 py-3 font-medium">Status</th>
                 <th className="px-5 py-3 font-medium">Inicio</th>
@@ -65,7 +65,7 @@ export default async function ModuleDetailPage({ params }: ModuleDetailPageProps
                   <td className="px-5 py-4">
                     <Link
                       className="text-[14px] font-semibold  hover:text-[var(--blue-xl)]"
-                      href={`/módulos/entitlements/${entitlement.id}`}
+                      href={`/modulos/entitlements/${entitlement.id}`}
                     >
                       {entitlement.tenantName}
                     </Link>

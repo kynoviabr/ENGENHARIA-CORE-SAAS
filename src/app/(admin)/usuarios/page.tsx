@@ -4,25 +4,30 @@ import { DataPanel } from "@/components/data-panel";
 import { InfoCard } from "@/components/info-card";
 import { PageHeader } from "@/components/page-header";
 import { StatusPill } from "@/components/status-pill";
+import { UserTenantFilter } from "@/components/user-tenant-filter";
+import { listTenantRows } from "@/core/repositories/tenant-repository";
 import { listUserMembershipRows } from "@/core/repositories/user-repository";
 
 interface UsuariosPageProps {
   searchParams: Promise<{
+    tenantId?: string;
     userAction?: string;
   }>;
 }
 
 export default async function UsuariosPage({ searchParams }: UsuariosPageProps) {
-  const { userAction } = await searchParams;
-  const users = await listUserMembershipRows();
+  const { tenantId, userAction } = await searchParams;
+  const [tenants, allUsers] = await Promise.all([listTenantRows(), listUserMembershipRows()]);
+  const selectedTenantId = tenantId && tenants.some((tenant) => tenant.id === tenantId) ? tenantId : tenants[0]?.id ?? "";
+  const users = selectedTenantId ? allUsers.filter((user) => user.tenantId === selectedTenantId) : [];
   const summary = getUserSummary(users);
 
   return (
     <div className="space-y-6">
       <PageHeader
         eyebrow="// Usuários"
-        title="Identidades e vínculos"
-        description="Usuários são cadastrados de forma centralizada e vinculados a uma ou mais empresas por memberships."
+        title="Usuários por empresa"
+        description="Selecione a empresa para consultar os usuários vinculados, seus sistemas e perfis de acesso."
         action={
           <Link className="btn btn-primary" href="/usuarios/novo">
             <UserPlus size={15} />
@@ -38,12 +43,18 @@ export default async function UsuariosPage({ searchParams }: UsuariosPageProps) 
       ) : null}
 
       <section className="grid gap-4 md:grid-cols-3">
-        <InfoCard label="Usuários mockados" value={summary.total.toString()} detail="Primeiro recorte para validar o fluxo." />
+        <InfoCard label="Usuários" value={summary.total.toString()} detail="Vinculados à empresa selecionada." />
         <InfoCard label="Convites" value={summary.invited.toString()} detail="Aceite pendente por e-mail." />
-        <InfoCard label="Papéis usados" value={summary.roleCount.toString()} detail="Atribuições no contexto do tenant." />
+        <InfoCard label="Perfis usados" value={summary.roleCount.toString()} detail="Atribuições nesta empresa." />
       </section>
 
-      <DataPanel eyebrow="// Memberships" title="Usuários vinculados">
+      <DataPanel title="Empresa">
+        <div className="p-4">
+          <UserTenantFilter selectedTenantId={selectedTenantId} tenants={tenants} />
+        </div>
+      </DataPanel>
+
+      <DataPanel title="Usuários vinculados">
         <div className="overflow-x-auto">
           <table className="w-full min-w-[820px] border-collapse text-left">
             <thead>
@@ -61,7 +72,7 @@ export default async function UsuariosPage({ searchParams }: UsuariosPageProps) 
                   <td className="px-5 py-4">
                     <Link
                       className="text-[14px] font-semibold  hover:text-[var(--blue-xl)]"
-                      href={`/usuários/${user.membershipId}`}
+                      href={`/usuarios/${user.membershipId}`}
                     >
                       {user.name}
                     </Link>

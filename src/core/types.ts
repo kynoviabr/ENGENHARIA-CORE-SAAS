@@ -5,7 +5,7 @@ export type CatalogStatus = "active" | "pending" | "planned" | "suspended";
 export type ContractStatus = "draft" | "pending" | "active" | "expired" | "suspended" | "cancelled" | "closed";
 export type SubscriptionStatus = "trial" | "active" | "pending" | "past_due" | "suspended" | "cancelled" | "expired";
 export type EntitlementSource = "plan" | "contract" | "subscription" | "trial" | "manual" | "core";
-export type BillingCycle = "monthly" | "quarterly" | "yearly" | "trial";
+export type BillingCycle = "monthly" | "quarterly" | "yearly" | "one_time" | "trial";
 export type BillingModel = "flat" | "per_user" | "per_resource" | "per_unit" | "usage_based" | "custom";
 
 export interface Tenant {

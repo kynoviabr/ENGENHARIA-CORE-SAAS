@@ -117,7 +117,7 @@ function parseContractForm(formData: FormData): ContractInput {
     throw new Error("Invalid contract status");
   }
 
-  if (!["monthly", "quarterly", "yearly", "trial"].includes(billingCycle)) {
+  if (!["monthly", "quarterly", "yearly", "one_time", "trial"].includes(billingCycle)) {
     throw new Error("Invalid billing cycle");
   }
 

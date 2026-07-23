@@ -63,15 +63,29 @@ async function setTenantStatus(tenantId: string, status: TenantStatus) {
 
 function parseTenantForm(formData: FormData): TenantInput {
   const status = String(formData.get("status") ?? "pending") as TenantStatus;
+  const document = readRequiredText(formData, "document", 18).replace(/[^a-zA-Z0-9]/g, "").toUpperCase();
 
   if (!["pending", "active", "suspended", "cancelled"].includes(status)) {
     throw new Error("Invalid tenant status");
   }
 
+  if (!/^[A-Z0-9]{14}$/.test(document)) {
+    throw new Error("CNPJ inválido");
+  }
+
+  readOptionalText(formData, "contactName", 120);
+  readOptionalText(formData, "zipCode", 9);
+  readOptionalText(formData, "street", 160);
+  readOptionalText(formData, "addressNumber", 20);
+  readOptionalText(formData, "addressComplement", 80);
+  readOptionalText(formData, "district", 100);
+  readOptionalText(formData, "city", 100);
+  readOptionalText(formData, "state", 2);
+
   return {
     legalName: readRequiredText(formData, "legalName"),
     tradeName: readRequiredText(formData, "tradeName"),
-    document: readRequiredText(formData, "document", 32),
+    document,
     email: readRequiredEmail(formData, "email"),
     phone: readOptionalText(formData, "phone", 40) ?? "",
     status,

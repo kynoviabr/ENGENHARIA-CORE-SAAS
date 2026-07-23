@@ -76,6 +76,7 @@ function parseUserMembershipForm(formData: FormData): UserMembershipInput {
   return {
     name: readRequiredText(formData, "name"),
     email: readRequiredEmail(formData, "email"),
+    systemCode: readRequiredText(formData, "systemCode", 80),
     tenantId: readRequiredText(formData, "tenantId", 80),
     roleId: readRequiredText(formData, "roleId", 80),
     status,

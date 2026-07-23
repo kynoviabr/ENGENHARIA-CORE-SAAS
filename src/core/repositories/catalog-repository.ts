@@ -15,6 +15,13 @@ export interface EntitlementInput {
   expiresAt: string | null;
 }
 
+export interface ProductInput {
+  code: string;
+  name: string;
+  description: string;
+  status: CatalogStatus;
+}
+
 export interface ModuleListItem extends ProductModule {
   productCode: string;
   productName: string;
@@ -49,7 +56,7 @@ export async function listProductRows(): Promise<Product[]> {
   return (data ?? []).map((product) => ({
     id: product.id,
     code: product.code,
-    name: product.name,
+    name: getProductDisplayName(product.code, product.name),
     description: product.description ?? "",
     status: product.status,
   }));
@@ -108,6 +115,31 @@ export async function getModuleRowById(id: string): Promise<ModuleListItem | nul
   return modules.find((module) => module.id === id) ?? null;
 }
 
+export async function createProductRow(input: ProductInput): Promise<string> {
+  const supabase = await getSupabaseServerClient();
+
+  if (!supabase) {
+    return "mock-created-product";
+  }
+
+  const { data, error } = await supabase
+    .from("products")
+    .insert({
+      code: input.code,
+      name: input.name,
+      description: input.description,
+      status: input.status,
+    })
+    .select("id")
+    .single();
+
+  if (error) {
+    throw new Error(`Unable to create product: ${error.message}`);
+  }
+
+  return data.id;
+}
+
 export async function listEntitlementRows(): Promise<Entitlement[]> {
   const supabase = await getSupabaseServerClient();
 
@@ -161,7 +193,7 @@ export async function listEntitlementListRows(): Promise<EntitlementListItem[]> 
       productCode: product?.code ?? "unknown-product",
       productName: product?.name ?? "Produto desconhecido",
       moduleCode: productModule?.code ?? "produto-inteiro",
-      moduleName: productModule?.name ?? "Produto inteiro",
+      moduleName: productModule?.name ?? "Sistema inteiro",
     };
   });
 }
@@ -276,4 +308,8 @@ async function listTenantLiteRows() {
 
 function isObjectRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function getProductDisplayName(code: string, name: string) {
+  return code === "pmt" ? "BTT" : name;
 }

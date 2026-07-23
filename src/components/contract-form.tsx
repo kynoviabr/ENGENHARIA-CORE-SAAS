@@ -65,6 +65,7 @@ export function ContractForm({ action, contract, plans, submitLabel, tenants }: 
             <option value="monthly">Mensal</option>
             <option value="quarterly">Trimestral</option>
             <option value="yearly">Anual</option>
+            <option value="one_time">Única</option>
             <option value="trial">Trial</option>
           </select>
         </label>

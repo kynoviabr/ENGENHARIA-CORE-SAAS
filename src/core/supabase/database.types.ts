@@ -151,7 +151,7 @@ export interface Database {
           code: string;
           name: string;
           description: string | null;
-          billing_cycle: "monthly" | "quarterly" | "yearly" | "trial";
+          billing_cycle: "monthly" | "quarterly" | "yearly" | "one_time" | "trial";
           status: "active" | "pending" | "planned" | "suspended";
           maximum_users: number;
           created_at: string;
@@ -162,7 +162,7 @@ export interface Database {
           code: string;
           name: string;
           description?: string | null;
-          billing_cycle: "monthly" | "quarterly" | "yearly" | "trial";
+          billing_cycle: "monthly" | "quarterly" | "yearly" | "one_time" | "trial";
           status?: "active" | "pending" | "planned" | "suspended";
           maximum_users?: number;
           created_at?: string;
@@ -223,7 +223,7 @@ export interface Database {
           tenant_id: string;
           plan_id: string;
           contract_number: string;
-          billing_cycle: "monthly" | "quarterly" | "yearly" | "trial";
+          billing_cycle: "monthly" | "quarterly" | "yearly" | "one_time" | "trial";
           start_date: string;
           end_date: string | null;
           renewal_date: string | null;
@@ -237,7 +237,7 @@ export interface Database {
           tenant_id: string;
           plan_id: string;
           contract_number: string;
-          billing_cycle?: "monthly" | "quarterly" | "yearly" | "trial";
+          billing_cycle?: "monthly" | "quarterly" | "yearly" | "one_time" | "trial";
           start_date: string;
           end_date?: string | null;
           renewal_date?: string | null;
